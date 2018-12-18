@@ -21,7 +21,26 @@ The decoder takes the input of the final hidden state and Vi the next word in th
 
 The final step is the backpropagation step where we use stochastic gradient descent to optimize the weights in the encoder and decoder (and attention mechanism).
 
-### Examples
+### Example
 ![example1](https://github.com/jimmychimmyy/tldr_synopsis_generator/blob/master/example1.png)
 
 ![example2](https://github.com/jimmychimmyy/tldr_synopsis_generator/blob/master/example2.png)
+
+### Discussion
+
+Initially, I treated this problem similar to a language translation problem: a model would take in some input sentence in language X and output a corresponding sentence in language Y. In the case of plot synopsis generation however, there were a few notable differences. The first difference that the length of the input to output varies much more than language translation. In language translation, the difference in length between two corresponding sentences is at most a few words. For my models the input length was between 280 and 5000 characters while the output length was between 25 and 280 characters.
+
+An obvious issue is the size of the dataset used to train the model. After cleaning and preprocessing the data the dataset may have been too small to achieve good results. A good next step for this project would be to gather plot summaries and plot synopsis directly from IMDB where there are over 1 million examples.
+
+Aside from the size of the dataset, another possible issue may have been how different each plot summary and plot synopsis were in terms of writing style. This may have been prevented the models from learning a good mapping from summaries to synopsis. There are various genres of movies within the CMU dataset ranging from Hollywood to Bollywood films and everything in between. Because of how diverse these films are, the language in each plot summary and target plot synopsis is very different from one another.
+Another issue is the evaluation metric chosen for these models. Summing word embeddings and finding the cosine distance between two word embeddings leaves a lot to be desired. For one thing, this method is indifferent to the ordering of words. Two sentences, “I love movies” and “Movies love I”, would receive identical scores even if the second sentence is ungrammatical and makes no real sense. A possible solution to this would be to compare n-grams of two sentences (This was not done due to the time constraint).
+
+Finally, I did not tune hyperparameters for any of the models. I chose to train each model using the same hyperparameters to find out which model would have the best performance. Doing a simple grid search in the future may help the model learn the mapping better.
+
+All things considered, the seq2seq model shows great promise for mapping plot summaries to plot synopses.
+
+### References
+
+* https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html
+* https://medium.com/@martinpella/how-to-use-pre-trained-word-embeddings-in-pytorch-71ca59249f76
+* https://machinelearningmastery.com/gentle-introduction-mini-batch-gradient-descent-configure-batch-size/
