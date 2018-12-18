@@ -12,4 +12,4 @@ python3 main.py
 ```
 
 ### Diagram
-![Diagram](https://github.com/jimmychimmyy/tldr_synopsis_generator/diagram.png)
+![Diagram](https://github.com/jimmychimmyy/tldr_synopsis_generator/blob/master/diagram.png)
